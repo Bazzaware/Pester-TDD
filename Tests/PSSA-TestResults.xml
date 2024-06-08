@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="4" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2024-06-06" time="16:16:27">
+  <environment machine-name="ND52337" nunit-version="2.5.8.0" user="BGoodall" cwd="D:\Data\Source\Misc\Bazzaware\Pester-TDD\Tests" user-domain="OS" os-version="10.0.22631" platform="Microsoft Windows 11 Enterprise|C:\WINDOWS|\Device\Harddisk0\Partition4" clr-version="8.0.4" />
+  <culture-info current-culture="en-GB" current-uiculture="en-GB" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="0.081" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="D:\Data\Source\Misc\Bazzaware\Pester-TDD\Tests\PSSA.Tests.ps1" executed="True" result="Success" success="True" time="0.081" asserts="0" description="D:\Data\Source\Misc\Bazzaware\Pester-TDD\Tests\PSSA.Tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="PSSA Standard Rules" executed="True" result="Success" success="True" time="0.0207" asserts="0" description="PSSA Standard Rules">
+            <results>
+              <test-suite type="TestFixture" name="PSSA Standard Rules.Testing against PSSA rules" executed="True" result="Success" success="True" time="0.0056" asserts="0" description="PSSA Standard Rules.Testing against PSSA rules">
+                <results>
+                  <test-case description="TestLocation Should Not be null or empty" name="PSSA Standard Rules.Testing against PSSA rules.TestLocation Should Not be null or empty" time="0.0017" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="Analysys should not be null or empty" name="PSSA Standard Rules.Testing against PSSA rules.Analysys should not be null or empty" time="0.0015" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="PSSA Standard Rules.Get-Emoji" executed="True" result="Success" success="True" time="0.0184" asserts="0" description="PSSA Standard Rules.Get-Emoji">
+                <results>
+                  <test-suite type="ParameterizedTest" name="PSSA Standard Rules.Get-Emoji.Returns &lt;expected&gt; (&lt;name&gt;)" executed="True" result="Success" success="True" time="0.0057" asserts="0" description="Returns &lt;expected&gt; (&lt;name&gt;)">
+                    <results>
+                      <test-case description="Returns 🌵 (cactus)" name="PSSA Standard Rules.Get-Emoji.Returns 🌵 (cactus)" time="0.003" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Returns 🦒 (giraffe)" name="PSSA Standard Rules.Get-Emoji.Returns 🦒 (giraffe)" time="0.0028" asserts="0" success="True" result="Success" executed="True" />
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
