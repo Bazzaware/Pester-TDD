@@ -1,6 +1,6 @@
 BeforeDiscovery { # <- this will run during Discovery
     $TestLocation = $(Split-Path $PSCommandPath -Parent)
-    $analysis = Invoke-ScriptAnalyzer -Path $TestLocation # -Recurse -ExcludeRule PSAvoidUsingWriteHost, PSAvoidUsingPlainTextForPassword, PSAvoidUsingConvertToSecureStringWithPlainText
+    $analysis = Invoke-ScriptAnalyzer -Path $TestLocation -Recurse #-ExcludeRule PSAvoidUsingWriteHost, PSAvoidUsingPlainTextForPassword, PSAvoidUsingConvertToSecureStringWithPlainText
     $warnings = $analysis.ForEach({ if ($_.Severity -match 'Warning') { $_ } })
     $infomation = $analysis.ForEach({ if ($_.Severity -match 'Information') { $_ } })
     $errors = $analysis.ForEach({ if ($_.Severity -match 'Error') { $_ } })
@@ -27,15 +27,16 @@ Context 'PSSA Standard Rules' {
             $expected = $(Split-Path $PSCommandPath -Parent)
             $result | Should -Be $expected                   
         }
-        It 'Analysys  count should greater than 0'-TestCases @{result = $analysis } {
-            $result.Count | Should -BeGreaterThan 0                       
-        }
         It 'scriptAnalyzerRules count should be 70' -TestCases @{result = $scriptAnalyzerRules } {
             $result.Count | Should -BeExactly  70                        
         }
-        It "Should Pass <RuleName>" -ForEach $rules {
+    }
+    Describe "Should pass <RuleName>" -ForEach $rules {
+        BeforeAll {
             $rule = $_
-            $rule.RuleName | Should -Be $rule.RuleName
+        }
+        It "Should" -TestCases @{result = $analysis } {
+            $result.RuleName | Should -Not -Match $rule.RuleName 
         }
     }
 }
@@ -62,6 +63,28 @@ Context 'Examples from Pester Docs' {
 
         It "Has kind <kind>" {
             Get-Emoji -Name $name | Get-EmojiKind | Should -Be $kind
+        }
+    }
+
+    Describe "Get-FruitBasket" {
+        It "Contains <_>" -ForEach '🍎', '🍌', '🥝', '🥑', '🍇', '🍐' {
+            Get-FruitBasket | Should -Contain $_
+        }
+    }
+
+    Describe "Get-FruitBasket" {
+        Context "Fruit <_>" -ForEach '🍎', '🍌', '🥝', '🥑', '🍇', '🍐' {
+            It "Contains <_> by default" {
+                Get-FruitBasket | Should -Contain $_
+            }
+
+            It "Can remove <_> from the basket" {
+                Remove-FruitBasket -Item $_
+                Get-FruitBasket | Should -Not -Contain $_
+            }
+        }
+        AfterAll {
+            Reset-FruitBasket
         }
     }
 }
