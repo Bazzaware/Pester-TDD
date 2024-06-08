@@ -6,11 +6,19 @@ BeforeDiscovery { # <- this will run during Discovery
     $errors = $analysis.ForEach({ if ($_.Severity -match 'Error') { $_ } })
     $ParseErrors = $analysis.ForEach({ if ($_.Severity -match 'ParseError') { $_ } })
     $scriptAnalyzerRules = Get-ScriptAnalyzerRule
+    $rules = @()
+    foreach ($rule in $scriptAnalyzerRules) {
+        $rules += @{
+            RuleName = $rule.RuleName;
+            Severity = $rule.Severity;
+        }
+    }
 }
 
 BeforeAll {
     Get-Module PesterDemoFunctions | Remove-Module
-    Import-Module $(Join-Path $(Split-Path $(Split-Path $PSCommandPath -Parent) -Parent)  "Modules/PesterDemoFunctions")
+    $modulePath = "$PSScriptRoot\..\modules\PesterDemoFunctions"
+    Import-Module $modulePath -Force
 }
     
 Context 'PSSA Standard Rules' {
@@ -25,8 +33,9 @@ Context 'PSSA Standard Rules' {
         It 'scriptAnalyzerRules count should be 70' -TestCases @{result = $scriptAnalyzerRules } {
             $result.Count | Should -BeExactly  70                        
         }
-        It 'Something' -ForEach $analysis {
-
+        It "Should Pass <RuleName>" -ForEach $rules {
+            $rule = $_
+            $rule.RuleName | Should -Be $rule.RuleName
         }
     }
 }
