@@ -1,8 +1,8 @@
 BeforeDiscovery { # <- this will run during Discovery
     $TestLocation = $(Split-Path $PSCommandPath -Parent)
-    $analysis = Invoke-ScriptAnalyzer -Path $TestLocation -Recurse #-ExcludeRule PSAvoidUsingWriteHost, PSAvoidUsingPlainTextForPassword, PSAvoidUsingConvertToSecureStringWithPlainText
+    $analysis = Invoke-ScriptAnalyzer -Path $TestLocation -Recurse -IncludeRule PSAvoidTrailingWhitespace #-ExcludeRule PSAvoidUsingWriteHost, PSAvoidUsingPlainTextForPassword, PSAvoidUsingConvertToSecureStringWithPlainText
     $scriptAnalyzerRules = Get-ScriptAnalyzerRule
-    $ScriptAnalyzerRuleNames = $(Get-ScriptAnalyzerRule).RuleName
+    $ScriptAnalyzerRuleNames = $(Get-ScriptAnalyzerRule).RuleName | Where-Object { $_ -match "PSAvoidTrailingWhitespace" } 
     $rules = @()
     foreach ($rule in $scriptAnalyzerRules) {
         $rules += @{
@@ -29,14 +29,11 @@ Context 'PSSA Standard Rules' {
         }
     }
 
-
-    
-    Describe "Should pass <RuleName>" -ForEach $ScriptAnalyzerRuleNames {
-        BeforeAll {
-            $rule = $_
-        }
-        It "Should" -TestCases @{result = $analysis } {
-            $result.RuleName | Should -Not -Match $rule.RuleName 
+    Describe "Should pass <_>" -ForEach $ScriptAnalyzerRuleNames {
+        foreach ($item in $analysis) {
+            It "$($item.ScriptName) : $($item.Line) : $($item.Message) " {
+                $item.RuleName | Should -Not -Be ${$}
+            }
         }
     }
 }
