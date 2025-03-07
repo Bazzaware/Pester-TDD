@@ -1,3 +1,9 @@
+[CmdletBinding()]
+param()
 
-
-Export-ModuleMember -Function BuildIfChanged
+. $PSScriptRoot\MyModule.ps1
+Export-ModuleMember -Function @(
+    'BuildIfChanged'
+    'Get-Version'
+    'Get-NextVersion'
+)
