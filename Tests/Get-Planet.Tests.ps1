@@ -1,5 +1,5 @@
 BeforeAll {
-    . .\scripts\Get-Planet.ps1
+    . "$PSScriptRoot\..\scripts\Get-Planet.ps1"
     $allPlanets = Get-Planet
 }
 
