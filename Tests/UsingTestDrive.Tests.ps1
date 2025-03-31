@@ -10,6 +10,7 @@ Describe "Add-Footer" {
         Set-Content $testPath -value "my test text."
         Add-Footer $testPath "-Footer"
         $result = Get-Content $testPath
+        return $result
     }
 
     It "adds a footer" {
