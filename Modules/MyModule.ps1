@@ -6,7 +6,7 @@ function BuildIfChanged {
 }
 
 function Build ($version) {
-    Write-Host "a build was run for version: $version"
+    Write-Information "a build was run for version: $version" -InformationAction Continue
 }
 
 # Actual definitions of Get-Version and Get-NextVersion are not shown here,
